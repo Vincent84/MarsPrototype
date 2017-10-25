@@ -10,18 +10,21 @@ public static class ActivityManager {
     public static void StartActivity(string name)
     {
         Activity activity = availableActivities.Find(x => x.activityName.Contains(name));
-        activity.active = true;
+
+        if(activity.currentState == Activity.State.READY) ResourceManager.Instance.DecreasesResources(activity.resourcesNeeded);
+           
+        activity.currentState = Activity.State.RUNNING;
+        
         activity.StartCoroutine(StartTimerActivity(activity));
     }
 
 	public static void StopActivity(string name)
 	{
 		Activity activity = availableActivities.Find(x => x.activityName.Contains(name));
-        activity.active = false;
 	}
 
     private static void CompleteActivity(Activity activity)
-    {
+    {   
         completedActivities.Add(activity);
         availableActivities.Remove(activity);
         activity.SetCompletedActivity();
@@ -29,12 +32,15 @@ public static class ActivityManager {
 
 	public static IEnumerator StartTimerActivity(Activity activity)
 	{
-        while (activity.timer > 1 && activity.active)
+        while (activity.timer > 1 && activity.currentState == Activity.State.RUNNING)
 		{
 			activity.timer -= Time.deltaTime * 1;
 			yield return null;
 		}
-        CompleteActivity(activity);
+        if(activity.timer < 1) 
+        {
+			CompleteActivity(activity);
+		}
 
 	}
 

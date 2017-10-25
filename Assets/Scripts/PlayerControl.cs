@@ -21,7 +21,7 @@ public class PlayerControl : MonoBehaviour {
     void Update()
     {
 
-        if(active)
+        if(active && GameManager.currentState == GameManager.GameState.EXPLORATION)
         {
             float yStore = moveDirection.y;
             moveDirection = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
