@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour {
         playerManager.active = false;
 
         // Check if the player number is greater than array's length
-        if(playerNumber >= players.Length)
+        if (playerNumber >= players.Length)
         {
             playerNumber = 0;
         }
@@ -98,18 +98,24 @@ public class GameManager : MonoBehaviour {
 
         // Set the camera position to active player's position
 
-        CameraControl cameraManager = Camera.main.GetComponent<CameraControl>();
+        CameraControl cameraManager = Camera.main.transform.parent.GetComponent<CameraControl>();
         CameraBehaviour cameraBehaviour = cameraManager.cameraBehaviour;
 
         if (cameraBehaviour.cameraType == 0)
         {
-
-
-
+        
             ThirdPersonCamera thirdPersonCamera = cameraBehaviour.gameObject.GetComponent<ThirdPersonCamera>();
             thirdPersonCamera.player_1 = players[activePlayer].transform;
             thirdPersonCamera.pivot.transform.position = thirdPersonCamera.player_1.transform.position;
             thirdPersonCamera.pivot.transform.parent = thirdPersonCamera.player_1.transform;
+
+            //thirdPersonCamera.CameraFollowObj = players[activePlayer].transform;
+
+            
+
+
+
+
         }
         
         /*CameraController cameraManager = Camera.main.GetComponent<CameraController>();
@@ -117,5 +123,5 @@ public class GameManager : MonoBehaviour {
         cameraManager.pivot.transform.position = cameraManager.player_1.transform.position;
         cameraManager.pivot.transform.parent = cameraManager.player_1.transform;*/
 
+        }
     }
-}

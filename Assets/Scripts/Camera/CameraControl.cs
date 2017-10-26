@@ -23,12 +23,14 @@ public class CameraControl : MonoBehaviour {
         {
             StartCoroutine(ChangeCamera());
         }
+
+        cameraBehaviour.GetCameraBeahviour();
     }
 
-    void LateUpdate()
+    /*void LateUpdate()
     {
         cameraBehaviour.GetCameraBeahviour();   
-    }
+    }*/
 
     public IEnumerator ChangeCamera()
     {
@@ -41,6 +43,8 @@ public class CameraControl : MonoBehaviour {
 
                 cameraBehaviour.transform.position = transform.position;
                 cameraBehaviour.transform.rotation = transform.rotation;
+
+               // Camera.main.GetComponent<CameraCollision>().enabled = false;
 
                 activeCamera++;
                 cameraBehaviour = cameraBehaviours[activeCamera];
