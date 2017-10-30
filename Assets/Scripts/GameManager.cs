@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -11,7 +10,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public GameObject[] players;        // Players' array
-    public Resource[] resources;
+    public Resource[] resources = ResourceManager.ResourcesAvailable;
     public static GameState currentState;
 
     private int activePlayer;            // The active player
@@ -20,27 +19,17 @@ public class GameManager : MonoBehaviour {
     void Awake()
     {
         cameraControl = Camera.main.GetComponent<CameraControl>();
-        resources = ResourceManager.Instance.ResourcesAvailable;
         currentState = GameState.EXPLORATION;
-    }
 
-    void Start()
-    {
-        //resourceManager = new ResourceManager();
-
-        /*ResourceManager.IncreasesResources("Metallo", 10);       
-        ResourceManager.IncreasesResources("Argento", 5);       
-        ResourceManager.IncreasesResources("Rame", 19);*/       
+        foreach (Resource res in resources)
+        {
+            res.uiText.GetComponent<Text>().text = res.type.ToString() + ": " + res.quantity;
+        }
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            ResourceManager.Instance.Print();
-        }
 
         if(currentState == GameState.EXPLORATION)
         {
@@ -109,19 +98,7 @@ public class GameManager : MonoBehaviour {
             thirdPersonCamera.pivot.transform.position = thirdPersonCamera.player_1.transform.position;
             thirdPersonCamera.pivot.transform.parent = thirdPersonCamera.player_1.transform;
 
-            //thirdPersonCamera.CameraFollowObj = players[activePlayer].transform;
-
-            
-
-
-
-
         }
-        
-        /*CameraController cameraManager = Camera.main.GetComponent<CameraController>();
-        cameraManager.player_1 = players[activePlayer].transform;
-        cameraManager.pivot.transform.position = cameraManager.player_1.transform.position;
-        cameraManager.pivot.transform.parent = cameraManager.player_1.transform;*/
 
-        }
     }
+}

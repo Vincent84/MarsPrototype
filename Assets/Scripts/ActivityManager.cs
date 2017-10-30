@@ -11,7 +11,7 @@ public static class ActivityManager {
     {
         Activity activity = availableActivities.Find(x => x.activityName.Contains(name));
 
-        if(activity.currentState == Activity.State.READY) ResourceManager.Instance.DecreasesResources(activity.resourcesNeeded);
+        if(activity.currentState == Activity.State.READY) ResourceManager.DecreasesResources(activity.resourcesNeeded);
            
         activity.currentState = Activity.State.RUNNING;
         

@@ -61,14 +61,16 @@ public class ThirdPersonCamera : CameraBehaviour
          if (pivot.rotation.eulerAngles.x > maxViewAngle && pivot.rotation.eulerAngles.x < 180f)
          {
              pivot.rotation = Quaternion.Euler(maxViewAngle, 0, 0);
-            Debug.Log(maxViewAngle);
-         }
+             /*Debug.Log("Max view angle: " + maxViewAngle);
+             Debug.Log("Rotation max euler angle: " + pivot.rotation.eulerAngles.x);*/
+        }
 
          if (pivot.rotation.eulerAngles.x > 180f && pivot.rotation.eulerAngles.x < 360f + minViewAngle)
          {
              pivot.rotation = Quaternion.Euler(360f + minViewAngle, 0, 0);
-            Debug.Log(minViewAngle);
-         }
+             /*Debug.Log("Max view angle: " + maxViewAngle);
+             Debug.Log("Rotation max euler angle: " + pivot.rotation.eulerAngles.x);*/
+        }
 
          float desiredYAngle = player_1.eulerAngles.y;
          float desiredXAngle = pivot.eulerAngles.x;

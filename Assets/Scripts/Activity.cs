@@ -60,7 +60,7 @@ public class Activity : MonoBehaviour {
                 if (other.tag == "Player" && assignedPlayer == other.gameObject && assignedPlayer.GetComponent<PlayerControl>().active && !isTriggered)
                 {
                     
-                    if (ResourceManager.Instance.ChecksResourcesAvailibility(resourcesNeeded))
+                    if (ResourceManager.ChecksResourcesAvailibility(resourcesNeeded))
                     {
                         currentState = State.READY;
                     }
